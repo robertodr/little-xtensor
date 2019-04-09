@@ -119,7 +119,8 @@ jobs:
       - script: |
           setlocal EnableDelayedExpansion
           call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-          cmake -H. -Bbuild -G Ninja ^
+          mkdir build & cd build
+          cmake -G Ninja ^
                 -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ^
                 -DCMAKE_C_COMPILER=clang-cl ^
                 -DCMAKE_CXX_COMPILER=clang-cl ^
@@ -130,7 +131,7 @@ jobs:
       # Build
       - script: |
           call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-          cmake --build build ^
+          cmake --build . ^
                 --config %CMAKE_BUILD_TYPE% ^
                 -- -j %NUMBER_OF_PROCESSORS%
         displayName: "Build little-xtensor"
