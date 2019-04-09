@@ -26,8 +26,7 @@ pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 
 target_compile_options(first_example
   PRIVATE
-    -Xclang
-    -std=c++14
+    -fms-compatibility
   )
 
 target_include_directories(first_example
