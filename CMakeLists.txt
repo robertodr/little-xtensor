@@ -7,6 +7,9 @@ find_package(xtensor REQUIRED CONFIG)
 
 find_package(xtensor-python REQUIRED CONFIG)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+find_package(NumPy REQUIRED)
+
 pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 
 if(MSVC)
@@ -20,4 +23,12 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR
   target_compile_options(first_example PRIVATE -march=native -std=c++14)
 endif()
 
-target_link_libraries(first_example xtensor-python)
+target_include_directories(first_example
+  PRIVATE
+    ${NUMPY_INCLUDE_DIRS}
+  )
+
+target_link_libraries(first_example 
+  PRIVATE
+    xtensor-python
+  )
