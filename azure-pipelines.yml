@@ -134,6 +134,6 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
           cmake --build . ^
                 --config %CMAKE_BUILD_TYPE% ^
-                -- -j %NUMBER_OF_PROCESSORS%
+                -- -v
         displayName: "Build little-xtensor"
         workingDirectory: $(Build.BinariesDirectory)/build

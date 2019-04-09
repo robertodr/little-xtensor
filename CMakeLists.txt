@@ -10,8 +10,6 @@ find_package(xtensor-python REQUIRED CONFIG)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(NumPy REQUIRED)
 
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Xclang" "-std=c++14")
-
 pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 
 #if(MSVC)
@@ -26,6 +24,12 @@ pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 #  "$<$<AND:$<CXX_COMPILER_ID:Clang>,$<BOOL:${WIN32}>>:-Xclang>"
 #  )
 
+target_compile_options(first_example
+  PRIVATE
+    -Xclang
+    -std=c++14
+  )
+
 target_include_directories(first_example
   PRIVATE
     ${NUMPY_INCLUDE_DIRS}
@@ -34,4 +38,16 @@ target_include_directories(first_example
 target_link_libraries(first_example
   PRIVATE
     xtensor-python
+  )
+
+include(CMakePrintHelpers)
+cmake_print_properties(
+  TARGETS
+    first_example
+  PROPERTIES
+    COMPILE_DEFINITIONS
+    COMPILE_FEATURES
+    COMPILE_FLAGS
+    COMPILE_OPTIONS
+    CXX_STANDARD
   )
