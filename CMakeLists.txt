@@ -7,7 +7,7 @@ find_package(xtensor REQUIRED CONFIG)
 
 find_package(xtensor-python REQUIRED CONFIG)
 
-add_executable(first_example src/example.cpp)
+pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 
 if(MSVC)
   target_compile_options(first_example PRIVATE /EHsc /MP /bigobj)
