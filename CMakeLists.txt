@@ -10,7 +10,7 @@ find_package(xtensor-python REQUIRED CONFIG)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(NumPy REQUIRED)
 
-list(APPEND CMAKE_CXX_FLAGS "-Xclang" "-std=c++14")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Xclang" "-std=c++14")
 
 pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 
