@@ -10,25 +10,21 @@ find_package(xtensor-python REQUIRED CONFIG)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(NumPy REQUIRED)
 
-pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
-
 if(MSVC)
-  target_compile_options(first_example PRIVATE /EHsc /MP /bigobj)
+  target_compile_options(first_example PRIVATE /EHsc /MP /bigobj /std:c++14)
   set(CMAKE_EXE_LINKER_FLAGS /MANIFEST:NO)
+else()
+  target_compile_options(first_example PRIVATE /EHsc /MP /bigobj -std:c++14)
 endif()
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR
-   CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR
-   (CMAKE_CXX_COMPILER_ID MATCHES "Intel" AND NOT WIN32))
-  target_compile_options(first_example PRIVATE -march=native -std=c++14)
-endif()
+pybind11_add_module(first_example MODULE THIN_LTO src/example.cpp)
 
 target_include_directories(first_example
   PRIVATE
     ${NUMPY_INCLUDE_DIRS}
   )
 
-target_link_libraries(first_example 
+target_link_libraries(first_example
   PRIVATE
     xtensor-python
   )
