@@ -16,8 +16,13 @@ if(MSVC)
   target_compile_options(first_example PRIVATE /EHsc /MP /bigobj /std:c++14)
   set(CMAKE_EXE_LINKER_FLAGS /MANIFEST:NO)
 else()
-  target_compile_options(first_example PRIVATE /EHsc /MP /bigobj -std:c++14)
+  target_compile_options(first_example PRIVATE -std:c++14)
 endif()
+
+add_compile_options(
+  "$<$<AND:$<C_COMPILER_ID:Clang>,$<BOOL:${WIN32}>>:-Xclang>"
+  "$<$<AND:$<CXX_COMPILER_ID:Clang>,$<BOOL:${WIN32}>>:-Xclang>"
+  )
 
 target_include_directories(first_example
   PRIVATE
