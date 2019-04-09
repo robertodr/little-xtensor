@@ -124,6 +124,7 @@ jobs:
                 -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% ^
                 -DCMAKE_C_COMPILER=clang-cl ^
                 -DCMAKE_CXX_COMPILER=clang-cl ^
+                -DCMAKE_VERBOSE_MAKEFILE=ON ^
                 $(Build.SourcesDirectory)
         displayName: "Configure little-xtensor"
         workingDirectory: $(Build.BinariesDirectory)
